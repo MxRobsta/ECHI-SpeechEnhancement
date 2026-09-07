@@ -1,0 +1,39 @@
+segment_types: "time.5"
+
+ref_type: ???
+aux_type: ???
+
+nonspeech_split: 0
+
+speech_noisy_signal: ${..paths.device_segment}
+time_noisy_signal: ${..paths.device_segment}
+ref_signal: ${..paths.ref_segment}
+rainbow_signal: ${..paths.enrol_file}
+segment_type: ???
+rainbow_type: ???
+spkemb_source: ???
+
+seg_fs: ${..ref_sample_rate}
+audio_fs: ${..model_sample_rate}
+
+sessions_file: ${..paths.sessions_file}
+segments_file: ${..paths.segments_file}
+manifest_file: ${..paths.manifest_file}
+
+signal:
+  noisy_sr: 48000
+  ref_sr: 16000
+  spkid_sr: 48000
+
+loader:
+  train:
+    batch_size: 1
+    num_workers: 4
+    shuffle: true
+    pin_memory: true
+  dev:
+    batch_size: 1
+    num_workers: 4
+    shuffle: false
+    pin_memory: true
+

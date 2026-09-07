@@ -1,0 +1,12 @@
+# Sets up the sub-venvs of the repo. This is dont due to conflicting packages
+
+echo "Setting up venvs/train/.venv"
+cd venvs/train
+uv sync
+
+echo "Setting up venvs/eval/.venv"
+cd ../eval
+uv sync
+
+cd ../..
+echo "Set up complete. Changing back to project directory ${PWD}"

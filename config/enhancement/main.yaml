@@ -1,0 +1,22 @@
+defaults:
+  - .@paths: ../paths
+  - .@shared: ../shared
+  - .@data: data
+
+exp_dir: ${paths.exp_dir}
+exp_name: ${shared.exp_name}
+
+dataset: eval
+checkpoint: null
+
+ref_sample_rate: ${shared.ref_sample_rate}
+model_sample_rate: ${shared.model_sample_rate}
+
+# Setting up paths for outputs of the experiments
+output_dir: ${paths.exp_dir}/${exp_name}/enhancement
+hydra:
+  run:
+    dir: ${output_dir}/hydra.enh
+  job_logging:
+    root:
+      level: INFO

@@ -1,0 +1,13 @@
+defaults:
+  - .@paths: ../paths
+  - _self_
+
+allexps_dir: ${paths.exp_dir}
+devices: ["aria", "ha"]
+dataset: eval
+segtype: dataocean
+evaltype: sum
+
+hydra:
+  run:
+    dir: data/analysis/hydra

@@ -1,0 +1,66 @@
+defaults:
+  - .@paths: ../paths
+  - _self_
+
+dataset: eval
+exp_name: ha.time.mse.prespk.rawnet.random.vadmask.auraloss.spec.lr1e-4
+
+ownvoice:
+  run: false
+  metrics:
+    - stoi
+    - pysepm_fwsegsnr
+    - pesq
+
+rainbow_similarity:
+  run: false
+  dataset: ${dataset}
+  embedding_type: rawnet
+  rainbow_path: ${..paths.enrol_file}
+  ref_file: ${paths.chime_ref}
+  ref_embedding_file: ${paths.enrol_rep}
+  sessions_file: ${paths.sessions_file}
+  segments_file: ${paths.segments_file}
+
+metric_vs_speaker:
+  run: false
+  dataset: ${dataset}
+  exp_name: ${exp_name}
+  embedding_type: rawnet
+  rainbow_path: ${..paths.enrol_file}
+  metric_dir: data/scratch/interspeech/${exp_name}/metrics/dataocean-json
+  target_metric: stoi
+  spkemd_dist: cossim
+
+metric_time:
+  dataset: ${dataset}
+  run: true
+  exp_name: ${exp_name}
+  ref_type: chime9.delay
+  device: null # Gets inferred from exp_name in python unless specified
+  transcripts: dataocean
+  sessions_file: ${paths.sessions_file}
+  silero_segment_file: ${paths.segments_file}
+  dataocean_file: ${paths.dataocean_file}
+  chime_ref: ${paths.chime_ref}
+  new_ref: ${paths.ref_session}
+  exp_dir: ${paths.exp_dir}/${metric_time.exp_name}
+  model_file: ${metric_time.exp_dir}/enhancement/epoch{epoch:03d}/{session}.{device}.{pid}.wav
+  metric_file: ${metric_time.exp_dir}/metrics/${metric_time.transcripts}-{filetype}/{session}.{device}.{pid}.{seg}.{filetype}
+  train_log: ${metric_time.exp_dir}/train_log.json
+  best_epoch: stoi
+
+metric_viewer:
+  metric_file: data/scratch/experiments/{exp_name}/enhancement/metrics/{session}.{device}.{pid}.{seg}.{filetype}
+  sessions_file: ${paths.sessions_file}
+
+view_metrics:
+  exp_names:
+    - fixed.den.lr5e-6
+    - fixedprespk.rawnet.rainbow_time_mse_ove_new.linspec.vadmask_lr1e-5
+  metrics_file: data/scratch/experiments/{exp_name}/enhancement/metrics/{session}.{device}.{pid}.metrics.json
+  sessions_file: data/chime9_echi/metadata/sessions.dev.csv
+
+hydra:
+  run:
+    dir: data/analysis/hydra

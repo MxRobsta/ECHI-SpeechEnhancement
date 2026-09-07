@@ -1,0 +1,29 @@
+name: den-tfgridnet
+
+twostage: False
+
+input:
+  sample_rate: ${model_sample_rate}
+  channels: ${audio_channels}
+  rms: 0.0
+  use_spkid: true
+  rainbow_type: null
+  type: stft
+  stft:
+    n_fft: 128
+    win_length: 128
+    hop_length: 64
+    window: hann
+
+params:
+  n_srcs: 1
+  n_imics: ${model.input.channels}
+  n_layers: 3
+  lstm_hidden_units: 256
+  attn_n_head: 4
+  attn_qk_output_channel: 256
+  emb_dim: 64
+  emb_ks: 4
+  emb_hs: 1
+  activation: prelu
+  eps: 1.0e-05

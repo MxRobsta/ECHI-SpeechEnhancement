@@ -1,0 +1,18 @@
+# Submitit configuration for running on slurm cluster
+
+# These will need to be editted to match your cluster setup.
+# The example below is for the University of Sheffield.
+
+defaults:
+  - submitit_slurm
+
+mem_gb: 16
+tasks_per_node: 1
+timeout_min: 180
+setup:
+  [
+    "module load GCC/12.3.0",
+    "source start",
+    "uv pip list",
+    "export SLURM_EXPORT_ENV=ALL",
+  ]

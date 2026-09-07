@@ -1,0 +1,45 @@
+# The items in this configuration file correspond to the steps in the overall recipe.
+# The values refer to configuration files of the individual steps.
+
+defaults:
+  - .@paths: ../paths
+  - .@shared: ../shared
+  - .@unpack: unpack
+  - device_info: aria
+  - iotypes: mse
+  - dataloading: time
+  - train: auraloss.spec
+  - model: new.tfgridnet
+  - .@wandb: ../wandb
+  - _self_
+
+# Signal info
+device: ${device_info.name}
+audio_channels: ${device_info.audio_channels}
+model_sample_rate: ${shared.model_sample_rate}
+ref_sample_rate: ${shared.ref_sample_rate}
+
+segment_type: ${dataloading.segment_type}
+enrol_type: ${model.input.rainbow_type}
+enrol_source: rainbow
+ref_source: chime9.delay
+
+# Debug run
+debug: false
+
+# Setting up paths for outputs of the experiments
+train_dir: ${paths.exp_dir}/${shared.exp_name}
+hydra:
+  run:
+    dir: ${train_dir}/hydra
+  job_logging:
+    root:
+      level: INFO
+
+# If you wish to skip a step, set its value to null or true as below.
+# This can be also done from command-line when running the script, e.g.
+# python run.py prepare_data.run=false
+unpack:
+  run: true
+train:
+  run: true

@@ -1,0 +1,26 @@
+chime_device: ${..paths.chime_device}
+chime_rainbow: ${..paths.chime_rainbow}
+chime_ref: ${..paths.chime_ref}
+segments_file: ${..paths.segments_file}
+dataocean_file: ${paths.dataocean_file}
+
+model_sample_rate: ${..model_sample_rate}
+ref_sample_rate: ${..ref_sample_rate}
+
+device_segment: ${..paths.device_segment}
+enrol_file: ${..paths.enrol_file}
+enrol_source: ${..enrol_source}
+ref_session: ${..paths.ref_session}
+ref_segment: ${..paths.ref_segment}
+ref_source: ${..ref_source}
+
+manifest_file: ${..paths.manifest_file}
+
+dataset: [train, dev]
+device: ${..device}
+sessions_file: ${..paths.sessions_file}
+segment_type: ${..segment_type}
+enrol_type: ${..enrol_type}
+use_dataocean: False
+
+overwrite: false

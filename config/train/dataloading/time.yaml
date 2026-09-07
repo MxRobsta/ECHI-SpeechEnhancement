@@ -1,0 +1,44 @@
+device: ${..device}
+segment_type: "time.5"
+shuffle_targets: True
+
+ref_type: ${..iotypes.ref_type}
+aux_type: ${..iotypes.aux_type}
+
+nonspeech_split: 0
+
+chime_device: ${..paths.chime_device}
+chime_refct: ${..paths.chime_ref}
+chime_rainbow: ${..paths.chime_rainbow}
+
+device_segment: ${..paths.device_segment}
+ref_segment: ${..paths.ref_segment}
+ref_source: ${..ref_source}
+enrol_file: ${..paths.enrol_file}
+enrol_type: ${..enrol_type}
+enrol_source: ${..enrol_source}
+
+seg_fs: ${..ref_sample_rate}
+audio_fs: ${..model_sample_rate}
+
+sessions_file: ${..paths.sessions_file}
+segments_file: ${..paths.segments_file}
+manifest_file: ${..paths.manifest_file}
+
+signal:
+  noisy_sr: 48000
+  ref_sr: 16000
+  spkid_sr: 48000
+
+loader:
+  train:
+    batch_size: 1
+    num_workers: 0
+    shuffle: true
+    pin_memory: true
+  dev:
+    batch_size: 1
+    num_workers: 0
+    shuffle: false
+    pin_memory: true
+

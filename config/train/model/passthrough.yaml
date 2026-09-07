@@ -1,0 +1,20 @@
+name: passthrough
+
+twostage: False
+
+input:
+  sample_rate: ${model_sample_rate}
+  channels: ${audio_channels}
+  rms: 0.0
+  use_spkid: true
+  type: stft
+  rainbow_type: audio
+  stft:
+    n_fft: 128
+    win_length: 128
+    hop_length: 64
+    window: hann
+
+params:
+  in_channels: ${model.input.channels}
+  out_channels: ${iotypes.out_srcs}

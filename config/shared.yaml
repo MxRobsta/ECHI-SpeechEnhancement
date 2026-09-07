@@ -1,0 +1,9 @@
+exp_name: ???
+model_sample_rate: 16000
+
+# ###########
+# You should not need to change anything below this line
+#
+ref_sample_rate: 16000
+signal_bitdepth: PCM_16
+nchannels: 1

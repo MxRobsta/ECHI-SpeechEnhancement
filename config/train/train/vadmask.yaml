@@ -1,0 +1,38 @@
+epochs: 30
+checkpoint_interval: 2
+lr: 1e-4
+clip_grad_norm: 1.0
+
+reject_batch: 2
+
+schedule_lr:
+  name: warmup_cosine
+  params:
+    n_epochs: ${train.epochs}
+    start_factor: 1e-10
+    linear_epochs: 2
+
+do_curriculum: False
+curriculum:
+  name: mixer
+  max_epoch: 20
+  rms_norm: 0.05
+
+loss:
+  name: random.vadmask.auraloss.spec
+  vad_thresh: 0.8
+  kwargs:
+    fft_size: 1024
+    hop_size: 256
+    win_length: 1024
+    window: hann_window
+    w_sc: 1.0
+    w_log_mag: 1.0
+    w_lin_mag: 0.0
+    w_phs: 0.0
+    perceptual_weighting: false
+    scale_invariance: true
+    eps: 1.0e-08
+    output: loss
+    reduction: mean
+    mag_distance: L1

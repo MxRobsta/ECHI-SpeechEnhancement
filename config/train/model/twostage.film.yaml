@@ -1,0 +1,46 @@
+name: den.msx_rawnet
+
+twostage:
+  dnn1_insrcs: null
+  dnn1_inmics: ${audio_channels}
+  dnn1_freeze: True
+  dnn2_insrcs: 3
+  dnn2_outsrcs: ${iotypes.out_srcs}
+  dnn2_intype: noisy.den
+
+input:
+  sample_rate: ${model_sample_rate}
+  channels: ${audio_channels}
+  rms: 0.0
+  use_spkid: true
+  type: stft
+  rainbow_type: rawnet
+  stft:
+    n_fft: 128
+    win_length: 128
+    hop_length: 64
+    window: hann
+dnn1:
+  name: ${device}.den.tfgridnet.spec.shufFalse.lr1e-4
+  exp_dir: ${paths.exp_dir}/${model.dnn1.name}
+  checkpoint: stoi
+
+dnn2:
+  name: prespk-tfgridnet
+
+  params:
+    in_srcs: ${iotypes.in_srcs}
+    out_srcs: ${iotypes.out_srcs}
+    n_imics: null # Gets inferred from previous code
+    n_layers: 3
+    spk_dim: 192
+    lstm_hidden_units: 128
+    attn_n_head: 4
+    attn_qk_output_channel: 128
+    emb_dim: 64
+    emb_ks: 4
+    emb_hs: 1
+    activation: prelu
+    mask: true
+    ref_channels: ${device_info.ref_channels}
+    eps: 1.0e-05

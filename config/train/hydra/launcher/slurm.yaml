@@ -1,0 +1,13 @@
+defaults:
+  - submitit_slurm
+
+mem_gb: 16
+tasks_per_node: 1
+additional_parameters:
+  partition: gpu,gpu-h100,gpu-h100-nvl
+setup:
+  [
+    "source activate echi_recipe",
+    "export SLURM_EXPORT_ENV=ALL",
+    "export PYTHONPATH=src",
+  ]

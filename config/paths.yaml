@@ -1,0 +1,47 @@
+root_dir: data/scratch # Path to a disk with enough space for preprocessing
+echi_dir: data/chime9_echi # Path to the ECHI dataset directory
+
+# Directories to store experiment outputs
+category: slt2026
+exp_dir: data/experiments/${paths.category}
+
+evaluation_dir: ${paths.exp_dir}/evaluation
+enhancement_dir: ${paths.exp_dir}/enhancement
+
+enhancement_output_dir: ${paths.enhancement_dir}/{dataset}_submission
+
+# General definitions
+signal_id: "{session}.{device}.{pid}" # Unique identifier for each signal
+
+# CHiME file
+chime_device: ${paths.echi_dir}/{device}/{dataset}/{session}.{device}.wav
+chime_ct: ${paths.echi_dir}/ct/{dataset}/{session}.ct_pos{i}.wav
+chime_ref: ${paths.echi_dir}/ref/{dataset}/${paths.signal_id}.wav
+chime_rainbow: ${paths.echi_dir}/participant/{dataset}/{pid}.wav
+chime_tracker: ${paths.echi_dir}/tracker/{dataset}/{session}.tracker_{pos}.csv
+
+# Metadata
+sessions_file: ${paths.echi_dir}/metadata/sessions.{dataset}.csv
+segment_info_dir: ${paths.echi_dir}/metadata/ref/{dataset}
+segments_file: ${paths.segment_info_dir}/${paths.signal_id}.csv
+dataocean_file: data/transcripts/{dataset}/{session}.ct_{pid}.json
+
+# Processed file
+device_segment: ${paths.root_dir}/device/{device}.{segtype}/${paths.signal_id}.{segid}.wav
+ct_denoised: ${paths.root_dir}/ct_denoised/{dentype}/{dataset}/${paths.signal_id}.wav
+ref_session: ${paths.root_dir}/refsessions/{source}/{dataset}/${paths.signal_id}.wav
+ref_segment: ${paths.root_dir}/refsegments/{source}.{segtype}/{dataset}/${paths.signal_id}.{segid}.wav
+enrol_file: ${paths.root_dir}/participant/{enrolsource}.{enroltype}/{dataset}/{pid}.wav
+enrol_rep: ${paths.root_dir}/participant/{enrolsource}.{enroltype}/{dataset}/{pid}.pt
+manifest_file: ${paths.root_dir}/manifests/{dataset}.{content}.{device}.{reftype}.json
+
+# Speaker similarity training
+spksim:
+  root: data/scratch_spksim
+  rainbow_audio: ${paths.spksim.root}/audio/{dataset}.{pid}.wav
+  ref_audio: ${paths.spksim.root}/ref_audio/{pretrained}/{dataset}.{pid}.{seg}.wav
+  ref_emb: ${paths.spksim.root}/ref_embedding/{pretrained}/{dataset}.{pid}.{seg}.pt
+  exp_dir: ${paths.spksim.root}/${paths.category}
+  segments_file: ${paths.spksim.root}/manifests/{dataset}.segments.json
+  manifest_file: ${paths.spksim.root}/manifests/{pretrained}.{dataset}.json
+

@@ -1,0 +1,36 @@
+defaults:
+  - .@paths: ../paths
+  - .@shared: ../shared
+  - _self_
+
+datasets: [train, dev]
+devices: [aria, ha]
+ref_source: meta-denoiser.pyroom-normed
+
+sessions_file: ${paths.sessions_file}
+segments_file: ${paths.segments_file}
+chime_device: ${paths.chime_device}
+chime_ct: ${paths.chime_ct}
+chime_tracker: ${paths.chime_tracker}
+ct_denoised: ${paths.ct_denoised}
+ref_session: ${paths.ref_session}
+
+sample_rate: ${shared.model_sample_rate}
+session_alignment: submodules/ECHI-ReferenceGeneration/metadata/session_alignment.json
+head_locations: submodules/ECHI-ReferenceGeneration/metadata/head_locations.csv
+collar: 0.002 # window to check around in milliseconds
+
+# Multirun helper
+range_id: 0
+n_ranges: 1
+
+overwrite: false
+
+# Setting up paths for outputs of the experiments
+hydra_dir: ${paths.root_dir}/refgen_logs/${now:%Y.%m.%d}/${now:%H.%M.%S.%f}
+hydra:
+  run:
+    dir: ${hydra_dir}/hydra
+  job_logging:
+    root:
+      level: INFO

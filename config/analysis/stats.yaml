@@ -1,0 +1,32 @@
+defaults:
+  - .@paths: ../paths
+  - _self_
+
+allexps_dir: ${paths.exp_dir}
+devices: ["ha"]
+dataset: eval
+segtype: dataocean
+evaltype: sum
+exps: main
+
+mainexps:
+  - noisy
+  - speech.tse.new.tfgridnet.auraloss.spec.lr5e-5
+  - speech.tse.prespk.rawnet.auraloss.spec.lr5e-5
+  - time.mse.new.tfgridnet.auraloss.spec.lr1e-4
+  - time.mse.prespk.rawnet.auraloss.spec.lr1e-4
+  - time.mse.new.tfgridnet.random.vadmask.auraloss.spec.lr1e-4
+  - time.mse.prespk.rawnet.random.vadmask.auraloss.spec.lr1e-4
+
+vadexps:
+  - time.mse.prespk.rawnet.auraloss.spec.lr1e-4
+  - time.mse.prespk.rawnet.rand20.vad.auraloss.spec.lr1e-4
+  - time.mse.prespk.rawnet.rand40.vad.auraloss.spec.lr1e-4
+  - time.mse.prespk.rawnet.rand60.vad.auraloss.spec.lr1e-4
+  - time.mse.prespk.rawnet.random.vadmask.auraloss.spec.lr1e-4
+  - time.mse.prespk.rawnet.rand100.vad.auraloss.spec.lr1e-4
+
+
+hydra:
+  run:
+    dir: data/analysis/hydra

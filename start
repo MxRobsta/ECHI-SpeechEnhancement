@@ -1,0 +1,11 @@
+# Starts the environment properly
+
+env=${1:-"none"}
+
+if [ ${env} = "none" ]
+then
+    echo "Must specify train or eval venv to activate"
+else
+    source venvs/$env/.venv/bin/activate
+fi
+export PYTHONPATH="${PYTHONPATH}:src"

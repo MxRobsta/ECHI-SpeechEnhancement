@@ -1,0 +1,31 @@
+name: prespk-tfgridnet
+
+itwostagee: False
+
+input:
+  sample_rate: ${model_sample_rate}
+  channels: ${audio_channels}
+  rms: 0.0
+  use_spkid: true
+  type: stft
+  rainbow_type: resemblyzer
+  stft:
+    n_fft: 128
+    win_length: 128
+    hop_length: 64
+    window: hann
+
+params:
+  in_srcs: ${iotypes.in_srcs}
+  out_srcs: ${iotypes.out_srcs}
+  n_imics: ${model.input.channels}
+  n_layers: 3
+  spk_dim: 256
+  lstm_hidden_units: 128
+  attn_n_head: 4
+  attn_qk_output_channel: 128
+  emb_dim: 64
+  emb_ks: 4
+  emb_hs: 1
+  activation: prelu
+  eps: 1.0e-05
